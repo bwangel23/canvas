@@ -8,6 +8,9 @@ var Radius = 8;
 var MARGIN_TOP = 60;
 var MARGIN_LEFT = 30;
 
+var curShowTimeSeconds = 0;
+const endTime = new Date(2016, 7, 17, 18,47,52);
+
 window.onload = function () {
 
     var canvas = document.getElementById('canvas');
@@ -16,13 +19,23 @@ window.onload = function () {
     canvas.width = WINDOW_WIDTH;
     canvas.height = WINDOW_HEIGHT;
 
+    curShowTimeSeconds = getCurrentShowTimeSeconds();
     render(context);
 };
 
+function getCurrentShowTimeSeconds() {
+    var curTime = new Date();
+    var ret = endTime.getTime() - curTime.getTime();
+    ret = Math.round(ret / 1000);
+
+    return ret >= 0 ? ret : 0;
+}
+
+
 function render(context) {
-    var hours = 12;
-    var minutes = 34;
-    var seconde = 56;
+    var hours = parseInt(curShowTimeSeconds / 3600);
+    var minutes = parseInt((curShowTimeSeconds - hours * 3600)/60);
+    var seconde = curShowTimeSeconds % 60;
 
     // 数字占7个格子+1个半径，冒号占4个格子+1个半径
     renderDigit(MARGIN_LEFT, MARGIN_TOP, parseInt(hours/10), context);
