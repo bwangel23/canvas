@@ -2,11 +2,11 @@
  * Created by yundongx on 8/4/16.
  */
 
-var WINDOW_WIDTH = 1024;
-var WINDOW_HEIGHT = 580;
-var Radius = 8;
-var MARGIN_TOP = 60;
-var MARGIN_LEFT = 30;
+var WINDOW_WIDTH = 0;
+var WINDOW_HEIGHT = 0;
+var Radius = 0;
+var MARGIN_TOP = 0;
+var MARGIN_LEFT = 0;
 
 var curShowTimeSeconds = 0;
 const endTime = new Date(2016, 7, 19, 18,47,52);
@@ -15,6 +15,14 @@ var balls = [];
 const colors = ["#33B5E5", "#0099CC", "#9933CC", "#99CC00", "#669900", "#FFBB33", "#FF8800", "#FF4444", "#CC00000"];
 
 window.onload = function () {
+
+    WINDOW_HEIGHT = document.body.clientHeight;
+    WINDOW_WIDTH = document.body.clientWidth;
+    console.log("height is ", WINDOW_HEIGHT);
+
+    MARGIN_LEFT = Math.round(WINDOW_WIDTH / 10);
+    Radius = Math.round(WINDOW_WIDTH * 4 / 5 / 108)-1;
+    MARGIN_TOP = Math.round(WINDOW_HEIGHT / 5);
 
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
@@ -65,7 +73,6 @@ function update() {
     }
     
     update_balls();
-    console.log(balls.length);
 }
 
 function  addBalls(x, y, num) {
