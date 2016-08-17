@@ -9,7 +9,7 @@ var MARGIN_TOP = 60;
 var MARGIN_LEFT = 30;
 
 var curShowTimeSeconds = 0;
-const endTime = new Date(2016, 7, 17, 18,47,52);
+const endTime = new Date(2016, 7, 19, 18,47,52);
 
 var balls = [];
 const colors = ["#33B5E5", "#0099CC", "#9933CC", "#99CC00", "#669900", "#FFBB33", "#FF8800", "#FF4444", "#CC00000"];
@@ -65,6 +65,7 @@ function update() {
     }
     
     update_balls();
+    console.log(balls.length);
 }
 
 function  addBalls(x, y, num) {
@@ -95,6 +96,17 @@ function update_balls() {
             balls[i].y = WINDOW_HEIGHT - Radius;
             balls[i].vy = -balls[i].vy * 0.75;
         }
+    }
+
+    var count = 0;
+    for(var i = 0; i < balls.length; i++) {
+        if(balls[i].x + Radius > 0 && balls[i].x - Radius < WINDOW_WIDTH) {
+            balls[count++] = balls[i];
+        }
+    }
+    
+    while(balls.length > count) {
+        balls.pop();
     }
 }
 
