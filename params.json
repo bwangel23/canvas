@@ -1,6 +1,6 @@
 {
   "name": "Canvas",
   "tagline": "Some animations made by canvas",
-  "body": "Canvas动画\r\n==========\r\n\r\n利用Canvas制作的一些动画。\r\n\r\n+ [clock](./clock/)\r\n\r\n  + 根据慕课网课程[炫丽的倒计时效果Canvas绘图与动画基础](http://www.imooc.com/learn/133)制作的一个时钟程序。\r\n",
+  "body": "Canvas动画\r\n==========\r\n\r\n利用Canvas制作的一些动画。\r\n\r\n+ [clock](./clock/)\r\n\r\n  + 根据慕课网课程[炫丽的倒计时效果Canvas绘图与动画基础](http://www.imooc.com/learn/133)制作的一个时钟程序。\r\n  + [演示地址](./clock/)",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
