@@ -19,12 +19,20 @@ for(var i = 0; i < list.length; i++) {
 }
 
 var xhr = new XMLHttpRequest();
+var ac = new (window.AudioContext||window.webkitAudioContext)();
 
 function load(url) {
     xhr.open("GET", url);
     xhr.responseType = "arraybuffer";
     xhr.onload = function () {
-        console.log(xhr.response);
+        ac.decodeAudioData(xhr.response, function (buffer) {
+            var bufferSource = ac.createBufferSource();
+            bufferSource.buffer = buffer;
+            bufferSource.connect(ac.destination);
+            bufferSource[bufferSource.start?"start":"noteOn"](0);
+        }, function (err) {
+            console.error(err);
+        })
     }
     xhr.send();
 }
