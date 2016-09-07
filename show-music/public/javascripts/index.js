@@ -23,6 +23,10 @@ var ac = new (window.AudioContext||window.webkitAudioContext)();
 var gainNode = ac[ac.createGain?"createGain":"createGainNode"]();
 gainNode.connect(ac.destination);
 
+var analyser = ac.createAnalyser();
+analyser.fftSize  = 512;
+analyser.connect(gainNode);
+
 var source = null;
 
 var counter = 0;
@@ -38,19 +42,35 @@ function load(url) {
             if (n != counter)return;
             var bufferSource = ac.createBufferSource();
             bufferSource.buffer = buffer;
-            bufferSource.connect(gainNode);
+            bufferSource.connect(analyser);
             bufferSource[bufferSource.start?"start":"noteOn"](0);
             source = bufferSource;
         }, function (err) {
             console.error(err);
         })
-    }
+    };
     xhr.send();
 }
+
+function visuallizer() {
+    var arr = new Uint8Array(analyser.frequencyBinCount);
+    requestAnimationFrame = window.requestAnimationFrame ||
+                            window.webkitRequestAnimationFrame ||
+                            window.mozRequestAnimationFrame;
+    function v() {
+        analyser.getByteFrequencyData(arr);
+        requestAnimationFrame(v);
+    }
+
+    requestAnimationFrame(v);
+}
+
+visuallizer();
 
 function change_volume(percent) {
     gainNode.gain.value = percent * percent;
 }
+
 
 $("#volume")[0].onchange = function () {
     change_volume(this.value/this.max);
