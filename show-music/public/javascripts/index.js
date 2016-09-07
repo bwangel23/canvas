@@ -23,15 +23,24 @@ var ac = new (window.AudioContext||window.webkitAudioContext)();
 var gainNode = ac[ac.createGain?"createGain":"createGainNode"]();
 gainNode.connect(ac.destination);
 
+var source = null;
+
+var counter = 0;
 function load(url) {
+    var n = ++counter;
+    source && source[source.stop ? "stop" : "noteOff"]();
+    xhr.abort();
     xhr.open("GET", url);
     xhr.responseType = "arraybuffer";
     xhr.onload = function () {
+        if (n != counter)return;
         ac.decodeAudioData(xhr.response, function (buffer) {
+            if (n != counter)return;
             var bufferSource = ac.createBufferSource();
             bufferSource.buffer = buffer;
             bufferSource.connect(gainNode);
             bufferSource[bufferSource.start?"start":"noteOn"](0);
+            source = bufferSource;
         }, function (err) {
             console.error(err);
         })
