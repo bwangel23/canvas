@@ -30,6 +30,45 @@ header h1{
   height: 60px;
   line-height: 60px;
 }
+
+header .type {
+  display: inline-block;
+  margin: 0 auto;
+  list-style-type: none;
+}
+
+header .type li {
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  width: 80px;
+  border-top: solid 1px #fff;
+  border-right: solid 1px #fff;
+  border-bottom: solid 1px #fff;
+  cursor: pointer;
+}
+
+header .type li.selected {
+  background-color: #fff;
+  color: #000;
+}
+
+header .type li:first-child {
+    border-left: solid 1px #fff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+header .type li:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
 .left{
   left: 10px;
   top: 170px;
